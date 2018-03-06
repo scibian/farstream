@@ -1,0 +1,103 @@
+Source: farstream-0.2
+Priority: optional
+Section: libs
+Maintainer: Debian Telepathy maintainers <pkg-telepathy-maintainers@lists.alioth.debian.org>
+Uploaders: Sjoerd Simons <sjoerd@debian.org>,
+           Laurent Bigonville <bigon@debian.org>
+Build-Depends: autotools-dev,
+               debhelper (>= 9),
+               dh-autoreconf,
+               gobject-introspection,
+               gtk-doc-tools (>= 1.18),
+               libgirepository1.0-dev,
+               libglib2.0-dev (>= 2.32),
+               libgstreamer-plugins-base1.0-dev (>= 1.4),
+               libgstreamer1.0-dev (>= 1.4),
+               libgupnp-igd-1.0-dev,
+               libnice-dev (>= 0.1.14+git20180504-1+sipe),
+               uuid-dev
+Standards-Version: 3.9.8
+Vcs-Git: https://anonscm.debian.org/git/pkg-telepathy/farstream-0.2.git
+Vcs-Browser: https://anonscm.debian.org/gitweb/?p=pkg-telepathy/farstream-0.2.git
+Homepage: https://www.freedesktop.org/wiki/Software/Farstream/
+
+Package: libfarstream-0.2-5
+Architecture: any
+Multi-Arch: same
+Conflicts: libfarstream-0.2-0, libfarstream-0.2-2
+Pre-Depends: ${misc:Pre-Depends}
+Depends: gstreamer1.0-nice (>= 0.1.13),
+         gstreamer1.0-plugins-bad,
+         gstreamer1.0-plugins-base,
+         gstreamer1.0-plugins-good,
+         libnice10 (>= 0.1.13)
+         ${misc:Depends},
+         ${shlibs:Depends}
+Description: Audio/Video communications framework: core library
+ The Farstream project is an effort to create a framework to deal with all
+ known audio/video conferencing protocols. On one side it offers a generic
+ API that makes it possible to write plugins for different streaming
+ protocols, on the other side it offers an API for clients to use those
+ plugins.
+ .
+ This package provides the core Farstream library.
+
+Package: libfarstream-0.2-dev
+Section: libdevel
+Architecture: any
+Depends: gir1.2-farstream-0.2,
+         libfarstream-0.2-5 (= ${binary:Version}),
+         libgstreamer1.0-dev,
+         ${misc:Depends},
+         ${shlibs:Depends}
+Description: Audio/Video communications framework: development files
+ The Farstream project is an effort to create a framework to deal with all
+ known audio/video conferencing protocols. On one side it offers a generic
+ API that makes it possible to write plugins for different streaming
+ protocols, on the other side it offers an API for clients to use those
+ plugins.
+ .
+ This package provides development files for Farstream.
+
+Package: libfarstream-0.2-doc
+Section: doc
+Architecture: all
+Depends: ${misc:Depends}
+Description: Audio/Video communications framework: documentation
+ The Farstream project is an effort to create a framework to deal with all
+ known audio/video conferencing protocols. On one side it offers a generic
+ API that makes it possible to write plugins for different streaming
+ protocols, on the other side it offers an API for clients to use those
+ plugins.
+ .
+ This package provides documentation for Farstream.
+
+Package: libfarstream-0.2-dbg
+Section: debug
+Priority: extra
+Architecture: any
+Multi-Arch: same
+Depends: ${misc:Depends}, libfarstream-0.2-5 (= ${binary:Version}), libgstreamer1.0-dev
+Description: Audio/Video communications framework: debugging symbols
+ The Farstream project is an effort to create a framework to deal with all
+ known audio/video conferencing protocols. On one side it offers a generic
+ API that makes it possible to write plugins for different streaming
+ protocols, on the other side it offers an API for clients to use those
+ plugins.
+ .
+ This package provides debugging symbols for Farstream.
+
+Package: gir1.2-farstream-0.2
+Architecture: any
+Multi-Arch: same
+Depends: ${gir:Depends}, ${misc:Depends}
+Section: introspection
+Description: Audio/Video communications framework: GObject-Introspection
+ The Farstream project is an effort to create a framework to deal with all
+ known audio/video conferencing protocols. On one side it offers a generic
+ API that makes it possible to write plugins for different streaming
+ protocols, on the other side it offers an API for clients to use those
+ plugins.
+ .
+ It can be used by packages using the GIRepository format to generate dynamic
+ bindings.
