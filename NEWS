@@ -1,0 +1,132 @@
+farstream 0.2.8 (March 10, 2016)
+==================================
+- Add "require-encryption" parameter to ignore unencrypted packets
+- Enable building static GStreamer and transmitter plugins
+- Make OPUS plugin work and select it as default codec
+- Bug fixes
+
+farstream 0.2.7 (January 29, 2015)
+==================================
+- Add "send-rtcp-mux" parameters to fsrtpsession
+- Add MTU and buffer splitting to rtpxdatapay
+- Fix crash if srtpenc/dec is missing
+- Bug fixes
+
+farstream 0.2.6 (October 9, 2014)
+================================
+- Add ICE-TCP support
+- Now require libnice 0.1.8
+
+farstream 0.2.5 (October 9, 2014)
+================================
+- Add SRTP support
+- Add API to set allowed input/output caps
+- Make it possible to have input that is not a raw format
+- Support formats with no encoders/decoders
+- Add payloader for the Microsoft Lync x-data format
+- Ignore ICE-TCP in new libnice
+- Fix misc bugs
+- Now require GStreamer 1.4
+
+farstream 0.2.4 (May 5, 2014)
+=============================
+- Install gtk-doc correctly
+- Adapt SSRC handling to GStreamer 1.2 and newer
+- Fix BSD build
+- Assorted bug fixes
+
+farstream 0.2.3 (April 15, 2013)
+================================
+- Use generic marshallers
+- Fix building by gold linker (Emanuele Aina)
+- Fix leaks, found by Havard Graff and others
+- Fix building with automake 1.13 (Nuno Araujo)
+- Lower PulseAudio latencies (Arun Raghavan)
+- Fix codec intersection
+- Add API to make the API be introspection accessible, fixing the Python example
+- Use GSocket and other win32 portability improvements
+
+farstream 0.2.2 (November 13, 2012)
+=================================
+- Update and fix the default properties for vp8enc
+
+farstream 0.2.1 (October 4, 2012)
+=================================
+
+- Fix bug where nothing would be sent
+- Fix various bugs in ElementAddedNotifier
+- Fix the GPL headers
+- Misc bug fixes
+
+farstream 0.2.0 (September 25, 2012)
+====================================
+
+- Official GStreamer 1.0 release
+- Ported python example to GStreamer 1.0 and GTK+ 3
+- Use GLib 2.32 APIs
+- Made API more introspection friendly
+- Ignore Error messages from the decoders
+- Prefer Opus and VP8
+- Various bug fixes
+
+farstream 0.1.91 (September 13, 2012)
+=====================================
+
+- Port to GStreamer 1.0 API
+
+farstream 0.1.2 (March 23, 2012)
+================================
+
+- Ignore config while comparing send codecs, fixes H.264 and Theora
+  negotation
+- Require GLib 2.30, do not allow APIs added after and ignore later
+  deprecations
+- Add default element properties for rawconference
+- Set better latency/buffer time for pulse src/sink
+- Remove the buffer-time property on the shm transmitter, because the
+  gst-plugins-bad plugin has a bug, we will restore it once a new
+  gst-plugins-bad version has been released
+
+farstream 0.1.1 (February 20, 2012)
+===================================
+
+- Initial release of Farstream
+- Not parallel installable with Farsight2
+- Added GObject Introspection annotations
+- Added parser functions for the GstMessages
+- shm transmiiter:Add a property to control the maximum bufferring time
+- API changes from Farsight2:
+
+ * Remove the "error" signal from the participants (they have no
+   methods, no behavior, and emit no errors)
+ * Remove the "cname" parameter from the participant constructor and
+   make the "cname" property specific to RTP and remove it from
+   fs_conference_new_participant()
+ * Remove the debug msg in the error messages
+ * Remove the special hack for ptime in FsCodec and make it a regular
+   parameter
+ * Pass sdes struct as-is to fsrtpconference
+ * Replace FS_DTMF_METHOD_IN_BAND with FS_DTMF_METHOD_SOUND
+ * Return NULL in "codecs" unless they are ready (and "codecs-ready"
+   is not needed anymore)
+ * Replace set_candidates by add_candidates and use force_candidates
+   for rawudp
+ * Set transmitter after creating stream
+   * Fixes possible race: One has a session with one stream, the user
+     creates a new stream, then packets in the new stream come in
+     (with the new stream's cname/ssrc) before the "src-pad-added"
+     signal is connected... ie doesn't link... failure
+     ensues.... solution? Giving the user a chance to link
+     src-pad-added before setting the transmitter ?
+ * Remove fs-interfaces (moved to libnice)
+ * Renamed fs-enum-types.h to fs-enumtypes.h for consistency
+ * Renamed fs-conference-iface.h to fs-conference.h
+ * Rename fs_stream_get_src_pads_iterator() to
+   fs_stream_iterate_src_pads() for consistency
+ * Remove the FS_ERROR_UNKNOWN_CNAME error entirely
+ * Add a _destroy method to session/stream and have the parent keep a
+   ref.. so the session/stream need to be destroyed/closed and we can
+   simplify the teardown code quite a bit
+ * Moved the header files from <gst/farsight/.. to <farstream/...> 
+
+- Now requires gst-plugins-bad 0.10.23

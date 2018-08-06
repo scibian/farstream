@@ -1,0 +1,125 @@
+This page describes the Farstream coding style. Respect it or die.
+
+It is a copy of
+http://www.freedesktop.org/wiki/Software/Farstream/CodingStyle
+
+They should both be in sync
+
+
+
+Loosely based on GNU style C.
+
+Max line width 80.
+
+All long lines wrapped with 4 space indentation.
+
+Spaces after all procedural calls (includes macros).
+
+Function names and variables names use underscore word separators. All GObject methods are prefixed with the appropriate prefix for the object.
+
+Typenames are in camelcase.
+
+NO TABS!
+
+Base indent unit is 2 spaces.
+
+==== Function prototypes ====
+
+The first parameter is on the same line as the function only if the function is a method.
+
+static void farstream_rtp_stream_get_property (GObject *object,
+    guint prop_id,
+    GValue *value,
+    GParamSpec *pspec);
+
+==== Function declarations ====
+
+The first parameter is on the same line as the function only if the function is a method.
+
+static void 
+farstream_rtp_stream_get_property (GObject * object,
+    guint prop_id,
+    GValue * value,
+    GParamSpec * pspec)
+{
+}
+
+==== If/else/while/for/do/struct/switch/etc ====
+
+if (condition)
+{
+  die ();
+}
+else
+{
+  die ();
+}
+
+For blocks that only contain one statement, the opening/closing brackets can be omitted. But this can only be done if all the blocks in a statement contain only one statement. This is an ILLEGAL example :
+
+if (condition)
+  die ();
+else
+{
+  die ();
+  die_again ();
+}
+
+
+==== Breaks and boolean operators ====
+
+if (self->priv->main_pipeline && src_in_pipeline
+    || !self->priv->your_mama)
+{
+}
+
+==== Pointer declarations ====
+
+Type *var;
+
+==== Switch ====
+
+switch (var)
+{
+  case 4:
+    die ();
+    break;
+  case 5:
+    die ();
+}
+
+==== Casting ====
+
+FarstreamRTPStream *self = (FarstreamRTPStream *) stream;
+
+==== #includes ====
+
+If you're going to #include "config.h", do that first, in case it defines things like "inline".
+
+Next, #include the header in which this .c file's API is declared. This guarantees that all public headers are self-contained.
+
+Next, #define any libc feature-test macros you need (_GNU_SOURCE etc.) and #include any C/POSIX standard library headers you need, in alphabetical order.
+
+Next, #include any headers you need from non-standard libraries (GLib, Gtk, GStreamer, ...) in alphabetical order.
+
+Finally, #include any private (non-installed) headers from the library or program you're writing.
+
+==== Emacs mode ====
+
+(defun farstream-c-mode ()
+  "C mode with farstream style"
+  (interactive)
+  (c-mode)
+  (c-set-style "GNU")
+  (setq tab-width 8)
+  (setq indent-tabs-mode nil)
+  (setq c-basic-offset 2)
+  (setq c-tab-always-indent nil)
+  (setq show-trailing-whitespace 't)
+  (c-set-offset 'case-label 2)
+  (c-set-offset 'arglist-intro 4)
+  (c-set-offset 'statement-cont 4)
+  (c-set-offset 'substatement-open 0)
+  (c-set-offset 'arglist-cont-nonempty 4)
+  (setq c-cleanup-list (quote (brace-else-brace brace-elseif-brace space-before-funcall))) 
+)
